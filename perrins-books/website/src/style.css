@@ -834,7 +834,6 @@ button {
   color: var(--accent);
   border-left-color: var(--accent);
   background: rgba(218, 207, 182, 0.04);
-  font-weight: 500;
 }
 
 .toc-item__number {
