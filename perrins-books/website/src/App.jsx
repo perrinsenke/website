@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo, useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Landing from './pages/Landing.jsx';
 import Bookshelf from './pages/Bookshelf.jsx';
 import About from './pages/About.jsx';
@@ -15,6 +15,7 @@ import { useStore } from './store.js';
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { bgMode, cycleBgMode } = useStore();
   
   const isPoemScreen = location.pathname.startsWith('/book/');
@@ -94,17 +95,21 @@ function AppContent() {
     }
   }, [gradientUrl, bg1, bg2, activeBg]);
 
-  // Handle Cmd/Ctrl + A to redirect to /ad
+  // Handle backslash (\) or Cmd+A to toggle /ad mode
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'a') {
+      if (e.key === '\\' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'a')) {
         e.preventDefault();
-        navigate('/ad');
+        if (location.pathname === '/ad') {
+          navigate('/');
+        } else {
+          navigate('/ad');
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate]);
+  }, [navigate, location.pathname]);
 
   return (
     <>
