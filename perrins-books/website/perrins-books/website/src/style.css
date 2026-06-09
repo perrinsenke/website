@@ -1,0 +1,1973 @@
+/* ── Reset & Core Styling ───────────────────────────────────────── */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Premium Dark Mode Palette (Linear-inspired) */
+  --bg: #000000;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  
+  --text: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --text-dim: #52525b;
+  
+  --accent: #ffffff;
+  --accent-dim: #a1a1aa;
+  --accent-glow: rgba(255, 255, 255, 0.1);
+  
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.15);
+  
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display-1: 'Syne', sans-serif;
+  --font-display-2: 'Space Grotesk', sans-serif;
+  --font-display-3: 'Syncopate', sans-serif;
+  --font-display-4: 'Outfit', sans-serif;
+
+  --transition-fast: 150ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-normal: 280ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-slow: 500ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.8);
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+#app {
+  min-height: 100vh;
+  position: relative;
+  pointer-events: none; /* Let clicks pass to the 3D canvas */
+  isolation: isolate; /* Create a stacking context so z-index -1 stays above body background */
+}
+
+/* Re-enable pointer events for interactive elements */
+#app * {
+  pointer-events: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ── Page & Content Transitions ─────────────────────────────────── */
+
+.page-enter {
+  animation: elegantFadeIn var(--transition-slow) forwards;
+}
+
+@keyframes elegantFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  99% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ── ASCII Particles ───────────────────────────────────────────── */
+
+.particle-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.ascii-particle {
+  position: absolute;
+  pointer-events: none;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  user-select: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 2px rgba(218, 207, 182, 0.3));
+}
+
+/* ── Landing Page ─────────────────────────────────────────────────── */
+
+.landing {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Flex-based layout wrapper for the Rectangle Grid Navigation */
+.landing--rect-grid {
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5vh 5vw;
+  align-items: stretch; /* So the nav takes full width */
+}
+
+/* ── Hero: Massive Asymmetrical Typography ──────────────────────── */
+
+.hero-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-group--top {
+  align-items: flex-start;
+}
+
+.hero-group--bottom {
+  align-items: center; /* Changed from flex-end to prevent left cutoff on large scaling */
+}
+
+.hero-text {
+  font-size: clamp(4rem, min(14vw, 22vh), 25rem);
+  line-height: 0.85;
+  margin: 0;
+  text-transform: uppercase;
+  max-width: 90vw;
+  word-wrap: break-word;
+  text-align: center;
+  animation: text-breathe 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes text-breathe {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.04) translateY(-10px); }
+}
+
+/* Blend mode difference works magically with 3D backgrounds */
+.glass-text {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+
+.hero-text--first {
+  font-family: var(--font-display-3); /* Syncopate: wide, sharp */
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.hero-text--last {
+  font-family: var(--font-display-1); /* Syne: bold, unique */
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* ── Horizontal Anchor Text ─────────────────────────────────────── */
+
+.horizontal-anchor {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: var(--font-display-2); /* Space Grotesk */
+  font-weight: 500;
+  font-size: clamp(0.7rem, 1.5vw, 4.8rem);
+  letter-spacing: 0.3em;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  margin-top: 0.2rem;
+  padding-left: 0.5vw;
+  animation: text-breathe-subtle 5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes text-breathe-subtle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.horizontal-anchor .dot {
+  font-size: 0.6rem;
+  opacity: 0.5;
+}
+
+/* ── Rectangular Grid Navigation ─────────────────────────── */
+
+.rect-grid-nav {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin: clamp(2rem, 5vh, 4rem) 0;
+  width: 100%;
+}
+
+/* Center the 3rd item (Other) horizontally while maintaining its row */
+.rect-grid-nav > .rect-card:nth-child(3) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - (clamp(1.5rem, 3vw, 3rem) / 2));
+}
+
+/* Inspired by .book-card from Bookshelf */
+.rect-card {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  /* Animate top instead of transform to avoid stacking context */
+  transition: top var(--transition-normal);
+  top: 0;
+  mix-blend-mode: difference;
+}
+
+.rect-card:hover {
+  top: -4px;
+}
+
+.rect-card__glass {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+}
+
+/* Book spine / Edge effect on the left */
+.rect-card__glass::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Top accent line transition */
+.rect-card__glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-slow);
+}
+
+.rect-card:hover .rect-card__glass {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.rect-card:hover .rect-card__glass::before {
+  transform: scaleX(1);
+}
+
+.rect-card__title {
+  position: relative; /* ensure it renders on top of absolute glass layer without z-index */
+  font-family: var(--font-display-3); /* Syncopate: wide, sharp, premium */
+  font-size: clamp(1.2rem, 3.5vw, 4.5rem); /* Slightly smaller due to wide font */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+  transition: letter-spacing var(--transition-normal), transform var(--transition-normal);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.rect-card:hover .rect-card__title {
+  letter-spacing: 0.05em;
+  transform: scale(1.05);
+}
+
+/* ── Mobile Layout ─────────────── */
+
+/* Mobile: stack vertically */
+@media (max-width: 768px) {
+  .hero-text {
+    font-size: clamp(4.5rem, 15vw, 24rem);
+  }
+  .horizontal-anchor {
+    font-size: 0.6rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .rect-grid-nav {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    margin: 2rem 0;
+  }
+  .rect-grid-nav > .rect-card:nth-child(3) {
+    grid-column: 1;
+    width: 100%;
+  }
+  .rect-card {
+    min-height: 120px;
+  }
+}
+
+/* ── Universal Classy Navigation ────────────────────────────────── */
+
+.classy-nav {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+  width: 100%;
+  animation: elegantFadeIn var(--transition-slow) forwards;
+}
+
+.classy-nav__back {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem; /* Increased size */
+  color: #ffffff;
+  mix-blend-mode: difference;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.classy-nav__back:hover {
+  color: var(--accent);
+}
+
+.classy-nav__back-arrow {
+  font-size: 0.85rem;
+  transition: transform var(--transition-fast);
+}
+
+.classy-nav__back:hover .classy-nav__back-arrow {
+  transform: translateX(-3px);
+}
+
+/* ── About & Music Layout Pages ───────────────────────────────────── */
+
+.about-page, .music-page {
+  max-width: clamp(800px, 60vw, 2400px);
+  margin: 0 auto;
+  padding: 5rem 2.5rem;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-content, .music-content {
+  background: rgba(24, 23, 22, 0.4);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 4rem 3.5rem;
+  box-shadow: var(--shadow-md);
+  flex-grow: 1;
+}
+
+.about-content__header, .music-content__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.about-content__title, .music-content__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 11rem);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.about-content__subtitle, .music-content__subtitle {
+  font-size: 0.75rem;
+  color: var(--accent-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.about-content__divider, .music-content__divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.about-content__body, .music-content__body {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+
+.about-content__paragraph, .music-content__paragraph {
+  margin-bottom: 1.5rem;
+  text-indent: 0;
+}
+
+.about-content__paragraph .highlight {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.about-content__quote {
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 1.5rem;
+  margin: 2.5rem 0 1.5rem;
+  font-style: italic;
+}
+
+.about-content__quote .quote-text {
+  color: var(--text);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-content__quote .quote-author {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Spotify Embed & Custom Buttons styling */
+.spotify-embed-container {
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  background: #000000;
+}
+
+.music-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.music-link-btn {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  transition: all var(--transition-normal);
+  text-align: center;
+  min-width: 200px;
+}
+
+.music-link-btn--spotify {
+  background: #1DB954;
+  color: #000000;
+  border: 1px solid #1DB954;
+}
+
+.music-link-btn--spotify:hover {
+  background: transparent;
+  color: #1DB954;
+  box-shadow: 0 0 15px rgba(29, 185, 84, 0.2);
+  transform: translateY(-2px);
+}
+
+.music-link-btn--apple {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-light);
+}
+
+.music-link-btn--apple:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.music-link-btn--youtube {
+  background: transparent;
+  color: #FF0000;
+  border: 1px solid #FF0000;
+}
+
+.music-link-btn--youtube:hover {
+  background: #FF0000;
+  color: #ffffff;
+  border-color: #FF0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .about-content, .music-content {
+    padding: 2.5rem 1.5rem;
+  }
+  .music-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ── Bookshelf Page ────────────────────────────────────────────── */
+
+.bookshelf {
+  max-width: clamp(900px, 70vw, 2800px);
+  margin: 0 auto;
+  padding: 7rem 2.5rem 5rem;
+  position: relative;
+}
+
+.bookshelf__header {
+  text-align: center;
+  margin-bottom: 5.5rem;
+}
+
+.bookshelf__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 12.8rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+}
+
+.bookshelf__subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Redesigned grid to center and beautifully balance two books */
+.bookshelf__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 3rem;
+  justify-content: center;
+}
+
+/* Premium physical book-cover inspired cards */
+.book-card {
+  background: rgba(24, 23, 22, 0.4);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 3.5rem 2.5rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+/* Book spine effect on the left edge */
+.book-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Elegant gold line transition */
+.book-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-slow);
+}
+
+.book-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(218, 207, 182, 0.05);
+}
+
+.book-card:hover::before {
+  transform: scaleX(1);
+}
+
+.book-card__badge {
+  font-size: 0.8rem; /* Increased size */
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.book-card:hover .book-card__badge {
+  color: var(--accent);
+}
+
+.book-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  color: var(--text);
+  margin-bottom: 2rem;
+  transition: color var(--transition-normal);
+}
+
+.book-card:hover .book-card__title {
+  color: #ffffff;
+}
+
+.book-card__count {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+
+/* ── Book View (Fine-Press Reading Experience) ───────────────────── */
+
+.book-view {
+  min-height: 100vh;
+  position: relative;
+}
+
+.book-view main {
+  margin-left: 300px;
+  width: calc(100% - 300px);
+}
+
+/* Sidebar ToC Styling (Glassmorphism look with warm accenting) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-light) transparent;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  mix-blend-mode: difference;
+}
+
+.sidebar__glass {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 14, 13, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 4px;
+}
+
+.sidebar__back {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem; /* Increased size */
+  color: #ffffff;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  transition: all var(--transition-fast);
+}
+
+.sidebar__back:hover {
+  color: var(--accent);
+}
+
+.sidebar__back-arrow {
+  font-size: 0.85rem;
+  transition: transform var(--transition-fast);
+}
+
+.sidebar__back:hover .sidebar__back-arrow {
+  transform: translateX(-3px);
+}
+
+.sidebar__book-title {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: 1.5rem; /* Increased size */
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  padding: 0 1.75rem;
+  margin-bottom: 0.75rem; /* Compact spacing between title and divider */
+  color: #ffffff;
+  line-height: 1.45;
+}
+
+.sidebar__divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 1.75rem 0.75rem; /* Compact spacing between divider and first item */
+}
+
+#toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem; /* Generous gap matching wrapped line spacing */
+  padding-bottom: 2rem;
+}
+
+.toc-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start; /* Aligns number and title to the top */
+  width: 100%;
+  text-align: left;
+  font-size: 1rem; /* Increased size */
+  color: #ffffff;
+  padding: 0.5rem 1.75rem; /* Even, balanced spacing between items */
+  line-height: 1.7; /* Airy line-height for wrapped poem titles */
+  transition: all var(--transition-normal);
+  border-left: 3px solid transparent;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.toc-item:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.toc-item--active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(218, 207, 182, 0.04);
+}
+
+.toc-item__number {
+  display: inline-block;
+  width: 2rem;
+  flex-shrink: 0; /* Prevents number width from compressing under flex layout */
+  color: #ffffff;
+  font-size: 0.85rem; /* Increased size */
+  font-family: var(--font-sans);
+}
+
+/* Beautiful reading panel area */
+.poem-area {
+  position: relative;
+  padding: 3rem 3rem 4rem;
+  max-width: clamp(760px, 55vw, 2000px); /* Slightly narrower max-width to look elegant with smaller text */
+  margin: 3rem auto 5rem; /* Push down to clear header, and ensure a comfortable black space at the bottom */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.poem-area__glass {
+  position: absolute;
+  inset: 0;
+  background: #000000; 
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+.poem-area__title {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.5vw, 4.5rem); /* Reduced to fit much better and save screen space */
+  font-weight: 300;
+  margin-bottom: 1.25rem; /* Reduced from 1.75rem */
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.poem-area__date {
+  position: relative;
+  font-size: 0.7rem; /* Reduced from 0.75rem */
+  color: #ffffff;
+  opacity: 0.6; /* High-quality anticolor dimming */
+  margin-top: -0.75rem; /* Adjusted for smaller title margin */
+  margin-bottom: 1.25rem; /* Reduced from 1.75rem */
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Typography tailored for quiet focus and elegant formatting */
+.poem-area__body {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 1.2vw, 2.2rem); /* Reduced from clamp(1.1rem, 2vw, 5rem) to fit more on screen */
+  line-height: 1.75; /* Slightly tighter but still perfectly elegant line-height */
+  color: #ffffff;
+  word-wrap: break-word;
+  letter-spacing: 0.01em;
+}
+
+.poem-area__body .stanza {
+  margin-bottom: 1.25rem; /* Reduced from 1.75rem to fit more stanzas on screen */
+  white-space: pre-wrap;
+}
+
+.poem-area__body .stanza:last-child {
+  margin-bottom: 0;
+}
+
+/* Anticolor styling for entire sections */
+.poem-area.anticolor-section,
+.dedication.anticolor-section {
+  color: #ffffff !important;
+}
+
+.poem-area.anticolor-section *,
+.dedication.anticolor-section * {
+  color: #ffffff !important;
+}
+
+/* Dedication page layout styling */
+.dedication {
+  position: relative;
+  padding: 5rem 4rem;
+  max-width: clamp(640px, 50vw, 2000px);
+  margin: 10vh auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dedication__glass {
+  position: absolute;
+  inset: 0;
+  background: #000000; 
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+.dedication__label {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0.7; /* Premium dimming with anticolor preservation */
+  margin-bottom: 3rem;
+}
+
+.dedication__text {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 1.2vw, 2.2rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 2.1;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Reading Navigation ─────────────────────────────────────────── */
+
+.poem-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  gap: 2rem;
+}
+
+.poem-nav__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all var(--transition-normal);
+  background: transparent;
+}
+
+.poem-nav__btn:hover {
+  color: #ffffff;
+  border-color: var(--accent-dim);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.poem-nav__btn--disabled {
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.poem-nav__counter {
+  position: relative;
+  font-size: 0.75rem;
+  color: #ffffff;
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+}
+
+/* ── Mobile Sidebar and Hamburger Toggle ───────────────────────── */
+
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text);
+  font-size: 1.3rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg), 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-normal);
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* ── Responsive Screen Tuning ────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .book-view main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 290px;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    box-shadow: 6px 0 35px rgba(0, 0, 0, 0.8);
+    background: hsl(30, 8%, 7%);
+  }
+
+  .sidebar--open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .poem-area {
+    padding: 3rem 1.5rem 4.5rem;
+  }
+
+  .bookshelf {
+    padding: 5rem 2rem;
+  }
+
+  .bookshelf__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* ── About Chaos (Generative Spam) ────────────────────────────────── */
+
+.about-chaos {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+  perspective: 1000px;
+}
+
+.chaos-nav {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+}
+
+.chaos-nav__back {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display-2);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  mix-blend-mode: normal;
+}
+
+.chaos-nav__back:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.chaos-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.chaos-text {
+  position: absolute;
+  white-space: nowrap;
+  pointer-events: auto;
+  line-height: 1;
+  will-change: transform, opacity;
+  transform: rotate(var(--start-rot));
+}
+
+/* Styles */
+.spam-neon-cyan {
+  color: transparent;
+  -webkit-text-stroke: 1px #00ffaa;
+  text-shadow: 0 0 10px rgba(0,255,170,0.5);
+}
+
+.spam-neon-gold {
+  color: #f5eedc;
+  text-shadow: 0 0 15px rgba(218,207,182,0.8);
+}
+
+.spam-neon-purple {
+  color: transparent;
+  -webkit-text-stroke: 2px #e0b0ff;
+  text-shadow: 0 0 20px rgba(138,43,226,0.8);
+}
+
+.spam-glass {
+  color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.spam-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+}
+
+.spam-diff {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+
+/* Animations */
+.spam-drift-x {
+  animation: chaos-drift-x linear infinite alternate;
+}
+.spam-drift-y {
+  animation: chaos-drift-y linear infinite alternate;
+}
+.spam-spin {
+  animation: chaos-spin linear infinite;
+}
+.spam-pulse {
+  animation: chaos-pulse ease-in-out infinite alternate;
+}
+.spam-float {
+  animation: chaos-float ease-in-out infinite alternate;
+}
+
+@keyframes chaos-drift-x {
+  0% { transform: translateX(-20vw) rotate(var(--start-rot)); }
+  100% { transform: translateX(20vw) rotate(var(--start-rot)); }
+}
+
+@keyframes chaos-drift-y {
+  0% { transform: translateY(-20vh) rotate(var(--start-rot)); }
+  100% { transform: translateY(20vh) rotate(var(--start-rot)); }
+}
+
+@keyframes chaos-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.5); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes chaos-pulse {
+  0% { transform: scale(0.5) rotate(var(--start-rot)); opacity: 0.2; }
+  100% { transform: scale(2) rotate(var(--start-rot)); opacity: 1; }
+}
+
+@keyframes chaos-float {
+  0% { transform: translate(0, 0) rotate(var(--start-rot)); }
+  33% { transform: translate(30px, -50px) rotate(calc(var(--start-rot) + 10deg)); }
+  66% { transform: translate(-20px, 20px) rotate(calc(var(--start-rot) - 5deg)); }
+  100% { transform: translate(0, 0) rotate(var(--start-rot)); }
+}
+
+/* ── Micro Animations (Jiggle, Shake, Breathe) ───────────────────── */
+
+@keyframes chaos-jiggle {
+  0% { margin-left: 0; margin-top: 0; }
+  25% { margin-left: 5px; margin-top: -3px; }
+  50% { margin-left: -3px; margin-top: 5px; }
+  75% { margin-left: 3px; margin-top: 2px; }
+  100% { margin-left: -5px; margin-top: -2px; }
+}
+
+@keyframes chaos-shake {
+  0% { margin-left: 0; }
+  25% { margin-left: 8px; }
+  50% { margin-left: -8px; }
+  75% { margin-left: 4px; }
+  100% { margin-left: -4px; }
+}
+
+@keyframes chaos-breathe {
+  0% { filter: blur(0px) brightness(1); margin-top: 0; }
+  100% { filter: blur(2px) brightness(1.2); margin-top: -10px; }
+}
+
+/* ── Particle Swarm ──────────────────────────────────────────────── */
+
+.chaos-particle {
+  position: absolute;
+  white-space: nowrap;
+  pointer-events: none;
+  font-weight: 800;
+  will-change: transform;
+}
+
+@keyframes particle-dart {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(calc(60vw * max(-1, min(1, var(--start-rot) - 180))), calc(60vh * max(-1, min(1, var(--start-rot) - 180)))) scale(0.5); opacity: 0; }
+}
+
+@keyframes particle-zigzag {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  25% { transform: translate(20vw, -10vh) rotate(15deg); }
+  50% { transform: translate(-10vw, 30vh) rotate(-10deg); }
+  75% { transform: translate(30vw, 10vh) rotate(5deg); }
+}
+
+/* ── Bookshelf Chaos (Glass Monoliths) ──────────────────────────── */
+
+.bookshelf-chaos {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  padding: 8rem 5vw 4rem;
+}
+
+.library-bg-text {
+  display: none; /* Hidden for now, keep code for future */
+  position: fixed;
+  top: 50%;
+  right: 5vw;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display-3);
+  font-size: clamp(2rem, 8vh, 12rem); /* Using vh ensures this 9-letter word fits vertically */
+  font-weight: 800;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 0;
+  animation: chaos-pulse 10s ease-in-out infinite alternate;
+  white-space: nowrap;
+}
+
+.monolith-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3vw;
+  width: 100%;
+}
+
+.book-monolith {
+  position: relative;
+  width: clamp(220px, 20vw, 1280px);
+  height: clamp(380px, 35vh, 2200px);
+  background: rgba(15, 14, 13, 0.4);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 
+    inset 0 0 40px rgba(255,255,255,0.03),
+    0 20px 40px rgba(0,0,0,0.5);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  animation: chaos-float 12s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+  mix-blend-mode: difference;
+}
+
+/* Stagger the heights/alignments of the monoliths */
+.book-monolith:nth-child(even) {
+  margin-top: 4rem;
+}
+
+.book-monolith:nth-child(3n) {
+  margin-top: -2rem;
+}
+
+.book-monolith:hover {
+  transform: translateY(-20px) scale(1.05);
+  background: rgba(218, 207, 182, 0.15);
+  border-color: rgba(218, 207, 182, 0.5);
+  box-shadow: 
+    inset 0 0 60px rgba(218, 207, 182, 0.1),
+    0 30px 60px rgba(0,0,0,0.8),
+    0 0 30px rgba(218, 207, 182, 0.2);
+  z-index: 20;
+}
+
+.book-monolith__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.book-monolith__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+}
+
+.book-monolith__badge {
+  color: #00ffaa;
+  background: rgba(0, 255, 170, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  text-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+}
+
+.book-monolith__count {
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.book-monolith__title {
+  font-family: var(--font-display-3);
+  font-size: clamp(1.4rem, 2.5vw, 8.5rem);
+  font-weight: 800;
+  font-style: normal;
+  color: #ffffff;
+  line-height: 0.85;
+  text-transform: uppercase;
+  word-break: break-word;
+  margin: auto 0;
+  transition: all 0.4s ease;
+}
+
+.book-monolith:hover .book-monolith__title {
+  color: #fff4d9;
+  text-shadow: 0 0 20px rgba(218, 207, 182, 0.6);
+  transform: scale(1.05) translateX(10px);
+}
+
+.book-monolith__author {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  align-self: flex-end;
+}
+
+/* ── Music Page Console ──────────────────────────────────────────── */
+
+.music-chaos {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.music-bg-text {
+  position: absolute;
+  top: 50%;
+  right: 5vw;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-display-1);
+  font-size: clamp(4rem, 12vw, 60rem);
+  font-weight: 800;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 0;
+  animation: chaos-breathe 8s ease-in-out infinite alternate;
+}
+
+.music-console-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: clamp(600px, 50vw, 1800px);
+  padding: 2rem;
+  animation: chaos-float 15s ease-in-out infinite alternate;
+}
+
+.music-console {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    inset 0 0 50px rgba(255,255,255,0.05),
+    0 20px 60px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.music-console__header {
+  text-align: center;
+}
+
+.music-console__title {
+  font-family: var(--font-display-2);
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.music-console__subtitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.music-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.music-pill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.music-pill--spotify {
+  color: #1DB954;
+  background: rgba(29, 185, 84, 0.1);
+  border: 1px solid rgba(29, 185, 84, 0.3);
+}
+.music-pill--spotify:hover {
+  background: rgba(29, 185, 84, 0.2);
+  border-color: rgba(29, 185, 84, 0.8);
+  box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
+  transform: scale(1.02);
+}
+
+.music-pill--apple {
+  color: #fa243c;
+  background: rgba(250, 36, 60, 0.1);
+  border: 1px solid rgba(250, 36, 60, 0.3);
+}
+.music-pill--apple:hover {
+  background: rgba(250, 36, 60, 0.2);
+  border-color: rgba(250, 36, 60, 0.8);
+  box-shadow: 0 0 20px rgba(250, 36, 60, 0.4);
+  transform: scale(1.02);
+}
+
+.music-pill--youtube {
+  color: #ff0000;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+.music-pill--youtube:hover {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  transform: scale(1.02);
+}
+
+/* ── Projects Page — Sleek Minimalist Slates ──────────────────────────── */
+
+.projects-layout {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+
+.projects-bg-text {
+  display: none;
+}
+
+/* ── Project Slates Container ───────────────── */
+
+.project-slates-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ── Individual Project Slate ───────────────────────────── */
+
+.project-slate {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: clamp(120px, 15vh, 200px);
+  text-decoration: none;
+  cursor: pointer;
+  
+  /* Anticolor — whole slate reacts to background */
+  mix-blend-mode: difference;
+  color: #fff;
+  
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  animation: chaos-float 12s ease-in-out infinite alternate;
+}
+
+.project-slate__glass {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Glass shape and background */
+  background: rgba(15, 14, 13, 0.4);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 
+    inset 0 0 40px rgba(255, 255, 255, 0.03),
+    0 15px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Alternate staggering for visual interest */
+.project-slate:nth-child(even) {
+  transform: translateX(2rem);
+}
+.project-slate:nth-child(odd) {
+  transform: translateX(-2rem);
+}
+
+/* Inner content */
+.project-slate__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  gap: 1rem;
+}
+
+.project-slate__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.project-slate__type {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.project-slate__title {
+  font-family: var(--font-display-3);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+  transition: all 0.4s ease;
+}
+
+/* ── Badges ───────────────────────────── */
+
+.project-slate__badge {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.project-slate__badge--ghost {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ── Active Bubble (Splinter) ────────────────────────────── */
+
+.project-slate--active:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+  z-index: 20;
+}
+
+.project-slate--active:hover .project-slate__glass {
+  background: rgba(218, 207, 182, 0.15);
+  border-color: rgba(218, 207, 182, 0.5);
+  box-shadow: 
+    inset 0 0 60px rgba(218, 207, 182, 0.1),
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(218, 207, 182, 0.2);
+}
+
+.project-slate--active:hover .project-slate__title {
+  color: #fff4d9;
+  text-shadow: 0 0 20px rgba(218, 207, 182, 0.6);
+  transform: translateX(10px);
+}
+
+/* ── Disabled Bubble (Coming Soon) ───────────────────────── */
+
+.project-slate--disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #fff;
+}
+
+.project-slate--disabled .project-slate__glass {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.01);
+}
+
+/* ── Mobile: Stack & Shrink ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  .projects-layout {
+    padding: 6rem 1rem 3rem;
+  }
+  
+  .project-slates-container {
+    gap: 1.5rem;
+  }
+
+  .project-slate {
+    height: auto;
+    min-height: 120px;
+  }
+
+  .project-slate:nth-child(even),
+  .project-slate:nth-child(odd) {
+    transform: none;
+  }
+
+  .project-slate__content {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+
+/* ── Impeccable Music Animations ───────────────────────────────────────── */
+
+/* Equalizer Background */
+.music-equalizer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.music-equalizer__bar {
+  width: 3vw;
+  background: #ffffff;
+  mix-blend-mode: difference;
+  opacity: 0.15;
+  animation: eq-bounce 1s ease-in-out infinite alternate;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+@keyframes eq-bounce {
+  0% { transform: scaleY(0.2); }
+  100% { transform: scaleY(1); }
+}
+
+/* Vinyl Ring Graphic */
+.music-vinyl-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+  animation: vinyl-spin 10s linear infinite;
+  box-shadow: 
+    0 0 40px rgba(255,255,255,0.02),
+    inset 0 0 40px rgba(255,255,255,0.02);
+}
+
+.music-vinyl-ring::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.music-vinyl-ring__inner {
+  position: absolute;
+  inset: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+@keyframes vinyl-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Entrance Animations */
+.animate-enter-fade {
+  opacity: 0;
+  animation: enter-fade 1s ease forwards;
+}
+
+.animate-enter-slideUp {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: enter-slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes enter-fade {
+  to { opacity: 1; }
+}
+
+@keyframes enter-slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhancing Hover on Music Pills */
+.music-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.music-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.music-pill:hover::after {
+  opacity: 1;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+
+/* 
+======================================================
+GLOBAL NEGATIVE TEXT REACTION FIX
+Difference blend mode only produces a true "negative"
+color if the foreground is pure white (#FFFFFF) with 
+100% opacity. Any gray or transparency makes it muddy.
+This forces all typography to pure white to guarantee
+perfect reactivity with the 3D backgrounds.
+======================================================
+*/
+.horizontal-anchor .dot,
+.about-content__subtitle,
+.music-content__subtitle,
+.about-content__body,
+.music-content__body,
+.about-content__quote .quote-author,
+.bookshelf__subtitle,
+.book-card__badge,
+.book-card__count,
+.poem-area__date,
+.dedication__label,
+.dedication__text,
+.poem-area__title,
+.stanza,
+.sidebar__book-title,
+.toc-item,
+.classy-nav__back {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* ── Comprehensive Mobile Layout Overrides ────────────────────────────── */
+@media (max-width: 768px) {
+  /* Landing Adjustments */
+  .hero-text {
+    font-size: clamp(3rem, min(15vw, 15vh), 18rem);
+  }
+  
+  /* Bookshelf Chaos */
+  .bookshelf-chaos {
+    padding: 6rem 1rem 3rem;
+  }
+  .monolith-gallery {
+    gap: 3rem; /* Replaced book margins with a clean gap for even spacing */
+    flex-direction: column;
+    align-items: center;
+  }
+  .book-monolith {
+    width: 100%;
+    max-width: 320px;
+    height: 450px;
+    margin-bottom: 0;
+  }
+  .book-monolith__title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  /* Prevent books from intersecting due to wild floating on mobile */
+  @keyframes chaos-float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(0, -10px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  /* Poetry Reader */
+  .book-view {
+    padding: 1rem;
+    padding-top: 4rem; /* Account for toggle button */
+  }
+  .poem-area {
+    padding: 2rem 1.5rem;
+    min-height: 60vh;
+  }
+  .poem-area__title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  .stanza {
+    font-size: 1rem;
+  }
+  
+  /* Sidebar Drawer */
+  .sidebar {
+    width: 85vw; /* Much wider on mobile */
+    max-width: 350px;
+    padding: 4rem 1.5rem 2rem;
+    background: #000000 !important; /* Solid black for readability */
+    mix-blend-mode: normal !important; /* Disable difference blend so black is actually black */
+  }
+  .sidebar__glass {
+    background: #000000 !important; /* Force pure black glass */
+    backdrop-filter: none;
+  }
+  .sidebar-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+  .toc-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+}
