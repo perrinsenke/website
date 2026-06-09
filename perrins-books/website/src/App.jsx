@@ -8,6 +8,7 @@ import Projects from './pages/Projects.jsx';
 import BookView from './pages/BookView.jsx';
 import Splinter from './pages/Splinter.jsx';
 import GeneticEcosystem from './pages/GeneticEcosystem.jsx';
+import AdGenerator from './pages/AdGenerator.jsx';
 import Scene from './components/Scene.jsx';
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 import { useStore } from './store.js';
@@ -92,6 +93,18 @@ function AppContent() {
       setActiveBg(1);
     }
   }, [gradientUrl, bg1, bg2, activeBg]);
+
+  // Handle Cmd/Ctrl + A to redirect to /ad
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        navigate('/ad');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
 
   return (
     <>
@@ -184,6 +197,7 @@ function AppContent() {
         <Route path="/projects/genetic-ecosystem" element={<GeneticEcosystem />} />
         <Route path="/book/:id" element={<BookView />} />
         <Route path="/book/:id/:page" element={<BookView />} />
+        <Route path="/ad" element={<AdGenerator />} />
       </Routes>
     </>
   );

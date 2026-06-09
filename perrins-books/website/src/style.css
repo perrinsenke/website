@@ -1061,7 +1061,8 @@ button {
     transform: translateX(-100%);
     transition: transform var(--transition-normal);
     box-shadow: 6px 0 35px rgba(0, 0, 0, 0.8);
-    background: hsl(30, 8%, 7%);
+    background: #000000 !important;
+    mix-blend-mode: normal !important;
   }
 
   .sidebar--open {
@@ -1922,6 +1923,19 @@ perfect reactivity with the 3D backgrounds.
   .book-monolith__title {
     font-size: clamp(2rem, 8vw, 3rem);
   }
+
+  /* Reset all weird chaotic desktop margins so flex column works perfectly */
+  .book-monolith:nth-child(even),
+  .book-monolith:nth-child(3n) {
+    margin-top: 0 !important;
+  }
+
+  /* Prevent books from intersecting due to wild floating on mobile */
+  @keyframes chaos-float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(0, -10px); }
+    100% { transform: translate(0, 0); }
+  }
   
   /* Poetry Reader */
   .book-view {
@@ -1945,10 +1959,11 @@ perfect reactivity with the 3D backgrounds.
     width: 85vw; /* Much wider on mobile */
     max-width: 350px;
     padding: 4rem 1.5rem 2rem;
-    background: #000000; /* Solid black for readability */
+    background: #000000 !important; /* Solid black for readability */
+    mix-blend-mode: normal !important; /* Disable difference blend so black is actually black */
   }
   .sidebar__glass {
-    background: #000000; /* Force pure black glass */
+    background: #000000 !important; /* Force pure black glass */
     backdrop-filter: none;
   }
   .sidebar-toggle {
@@ -1962,4 +1977,55 @@ perfect reactivity with the 3D backgrounds.
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
   }
+}
+
+/* ── Ad Generator (Instagram 9x16 Story Layout) ───────────────────────── */
+.ad-generator {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  overflow: hidden;
+}
+
+.ad-generator__container {
+  /* Enforce exactly 9:16 aspect ratio */
+  width: 100%;
+  height: 100%;
+  max-width: 540px; /* 1080px resolution / 2 */
+  max-height: 960px; /* 1920px resolution / 2 */
+  aspect-ratio: 9 / 16;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  z-index: 10;
+}
+
+.ad-generator__text {
+  text-align: center;
+  font-family: var(--font-display-3);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: auto;
+  margin-top: auto;
+  word-wrap: break-word;
+  animation: elegantFadeIn 2s ease-out forwards;
+}
+
+.ad-generator__footer {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  animation: elegantFadeIn 3s ease-out forwards;
 }
