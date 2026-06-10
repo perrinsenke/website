@@ -1921,8 +1921,15 @@ perfect reactivity with the 3D backgrounds.
     min-height: 400px;
     margin: 0 !important; /* Aggressive reset of all margins */
   }
+  .book-monolith__content {
+    justify-content: flex-start !important;
+  }
+  .book-monolith__meta {
+    margin-bottom: 2rem !important;
+  }
   .book-monolith__title {
     font-size: clamp(2rem, 8vw, 3rem);
+    margin: 0 !important;
   }
 
   /* Prevent books from intersecting due to wild floating on mobile */
@@ -2005,7 +2012,7 @@ perfect reactivity with the 3D backgrounds.
 .ad-generator__text {
   text-align: center;
   font-family: var(--font-display-3);
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(1.8rem, 5vw, 3rem);
   line-height: 1.1;
   text-transform: uppercase;
   margin-bottom: auto;
@@ -2036,4 +2043,8 @@ perfect reactivity with the 3D backgrounds.
   color: #ffffff;
   margin-bottom: 2rem;
   animation: elegantFadeIn 3s ease-out forwards;
+  
+  /* Anticolor Mode / Difference Blend */
+  mix-blend-mode: difference;
+  color: #ffffff !important;
 }

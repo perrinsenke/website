@@ -141,7 +141,7 @@ export default function BookView() {
                 >
                   ← Prev
                 </button>
-                <span className="poem-nav__counter">{safeIndex + 1} / {totalPages}</span>
+                <span className="poem-nav__counter">{poemArrayIndex + 1} / {poems.length}</span>
                 <button 
                   className={`poem-nav__btn ${safeIndex >= totalPages - 1 ? 'poem-nav__btn--disabled' : ''}`}
                   onClick={() => navigate(`/book/${id}/${safeIndex + 1}`)}
