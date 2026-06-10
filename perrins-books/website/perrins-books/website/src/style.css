@@ -1061,7 +1061,8 @@ button {
     transform: translateX(-100%);
     transition: transform var(--transition-normal);
     box-shadow: 6px 0 35px rgba(0, 0, 0, 0.8);
-    background: hsl(30, 8%, 7%);
+    background: #000000 !important;
+    mix-blend-mode: normal !important;
   }
 
   .sidebar--open {
@@ -1916,11 +1917,19 @@ perfect reactivity with the 3D backgrounds.
   .book-monolith {
     width: 100%;
     max-width: 320px;
-    height: 450px;
-    margin-bottom: 0;
+    height: auto !important;
+    min-height: 400px;
+    margin: 0 !important; /* Aggressive reset of all margins */
+  }
+  .book-monolith__content {
+    justify-content: flex-start !important;
+  }
+  .book-monolith__meta {
+    margin-bottom: 2rem !important;
   }
   .book-monolith__title {
     font-size: clamp(2rem, 8vw, 3rem);
+    margin: 0 !important;
   }
 
   /* Prevent books from intersecting due to wild floating on mobile */
@@ -1949,15 +1958,15 @@ perfect reactivity with the 3D backgrounds.
   
   /* Sidebar Drawer */
   .sidebar {
-    width: 85vw; /* Much wider on mobile */
-    max-width: 350px;
-    padding: 4rem 1.5rem 2rem;
-    background: #000000 !important; /* Solid black for readability */
+    width: 85vw !important; /* Much wider on mobile */
+    max-width: 350px !important;
+    padding: 4rem 1.5rem 2rem !important;
+    background: #030303 !important; /* Solid dark grey/black for readability */
     mix-blend-mode: normal !important; /* Disable difference blend so black is actually black */
+    z-index: 1000 !important;
   }
   .sidebar__glass {
-    background: #000000 !important; /* Force pure black glass */
-    backdrop-filter: none;
+    display: none !important; /* Completely hide the glass element on mobile to prevent transparency bugs */
   }
   .sidebar-toggle {
     top: 1rem;
@@ -1970,4 +1979,68 @@ perfect reactivity with the 3D backgrounds.
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
   }
+}
+
+/* ── Ad Generator (Instagram 9x16 Story Layout) ───────────────────────── */
+.ad-generator {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  overflow: hidden;
+}
+
+.ad-generator__container {
+  /* Enforce exactly 9:16 aspect ratio */
+  width: 100%;
+  height: 100%;
+  max-width: 540px; /* 1080px resolution / 2 */
+  max-height: 960px; /* 1920px resolution / 2 */
+  aspect-ratio: 9 / 16;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  z-index: 10;
+}
+
+.ad-generator__text {
+  text-align: center;
+  font-family: var(--font-display-3);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: auto;
+  margin-top: auto;
+  word-wrap: break-word;
+  animation: elegantFadeIn 2s ease-out forwards;
+  
+  /* Anticolor Mode / Difference Blend */
+  mix-blend-mode: difference;
+  color: #ffffff !important;
+  
+  /* The Bubble */
+  background: rgba(15, 14, 13, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.ad-generator__footer {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  animation: elegantFadeIn 3s ease-out forwards;
 }

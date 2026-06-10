@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo, useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Landing from './pages/Landing.jsx';
 import Bookshelf from './pages/Bookshelf.jsx';
 import About from './pages/About.jsx';
@@ -8,12 +8,14 @@ import Projects from './pages/Projects.jsx';
 import BookView from './pages/BookView.jsx';
 import Splinter from './pages/Splinter.jsx';
 import GeneticEcosystem from './pages/GeneticEcosystem.jsx';
+import AdGenerator from './pages/AdGenerator.jsx';
 import Scene from './components/Scene.jsx';
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 import { useStore } from './store.js';
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { bgMode, cycleBgMode } = useStore();
   
   const isPoemScreen = location.pathname.startsWith('/book/');
@@ -92,6 +94,22 @@ function AppContent() {
       setActiveBg(1);
     }
   }, [gradientUrl, bg1, bg2, activeBg]);
+
+  // Handle backslash (\) or Cmd+A to toggle /ad mode
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '\\' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'a')) {
+        e.preventDefault();
+        if (location.pathname === '/ad') {
+          navigate('/');
+        } else {
+          navigate('/ad');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate, location.pathname]);
 
   return (
     <>
@@ -184,6 +202,7 @@ function AppContent() {
         <Route path="/projects/genetic-ecosystem" element={<GeneticEcosystem />} />
         <Route path="/book/:id" element={<BookView />} />
         <Route path="/book/:id/:page" element={<BookView />} />
+        <Route path="/ad" element={<AdGenerator />} />
       </Routes>
     </>
   );
