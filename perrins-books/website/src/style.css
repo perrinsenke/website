@@ -1981,6 +1981,33 @@ perfect reactivity with the 3D backgrounds.
   }
 }
 
+/* ── Light Mode (W&B) Overrides ───────────────────────────────────── */
+.theme-light .poem-area,
+.theme-light .dedication {
+  background: #ffffff !important;
+  color: #000000 !important;
+  mix-blend-mode: normal !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1) !important;
+}
+.theme-light .poem-area__glass,
+.theme-light .dedication__glass {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+.theme-light .poem-area__title,
+.theme-light .dedication__label,
+.theme-light .dedication__text,
+.theme-light .poem-area__date,
+.theme-light .stanza,
+.theme-light .poem-nav__counter {
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+.theme-light .poem-nav__btn {
+  color: #000000 !important;
+  border-color: #cccccc !important;
+  background: #f0f0f0 !important;
+}
 /* ── Ad Generator (Instagram 9x16 Story Layout) ───────────────────────── */
 .ad-generator {
   position: relative;

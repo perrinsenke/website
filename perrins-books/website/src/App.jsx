@@ -23,7 +23,7 @@ function AppContent() {
   // If outside the poem screen, force Full Color (FC) so 3D isn't globally disabled.
   const effectiveBgMode = isPoemScreen ? (bgMode === 'AUTO' ? 'BW' : bgMode) : 'FC';
   const is3DEnabled = effectiveBgMode !== 'OFF';
-  const isBW = effectiveBgMode === 'BW';
+  const isBW = effectiveBgMode === 'BW' || effectiveBgMode === 'WB';
 
   // Create a base path dependency so the 3D shader doesn't reset when turning pages within the same book
   const backgroundSeedPath = useMemo(() => {
@@ -112,7 +112,7 @@ function AppContent() {
   }, [navigate, location.pathname]);
 
   return (
-    <>
+    <div className={effectiveBgMode === 'WB' ? 'theme-light' : ''}>
       {is3DEnabled && (
         <>
           {/* Buffer 1 */}
@@ -188,7 +188,7 @@ function AppContent() {
             transition: 'all 0.3s ease'
           }}
         >
-          {effectiveBgMode === 'BW' ? 'B&W' : effectiveBgMode === 'FC' ? 'FC' : 'OFF'}
+          {effectiveBgMode === 'BW' ? 'B&W' : effectiveBgMode === 'WB' ? 'W&B' : effectiveBgMode === 'FC' ? 'FC' : 'OFF'}
         </button>
       )}
 
@@ -204,7 +204,7 @@ function AppContent() {
         <Route path="/book/:id/:page" element={<BookView />} />
         <Route path="/ad" element={<AdGenerator />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
