@@ -119,5 +119,68 @@ export const poems = [
       "2 weeks. Give or take. Call it a mulligan, call it a stroke, call it whatever you want. I’m all out of luck. A handful of darts, a copper-tale of drunks, a half-remembered half-hug halfway out the door. Toccata. Focaccia bread, crackers-and-cheese, bottle-o-whine, aero-planed. Count me out. Meeting concluded, long time coming, long while ending, long whale beached-beheaded, long-rhyme throat indebted. Call it a mulligan. Feel out, feel low, feel it out, blow-hole camel-pak. Nice to tear-of-meat you. Call me by your name, it's halfway out my lips, it's trickling down my throat and it's boring a hole in my ribs, between the cage, ball-and-chained, aperol spritzed. Leaf-lined, length-fined, snoring away the night. Call me a cab, I’m ready for",
       "anywhere but here."
     ]
+  },
+  {
+    id: "poem-11",
+    title: "Epithalamion // Lacunose Courtesan // Aeolian Lesbian",
+    displayTitle: "Epithalamion // Lacunose Courtesan // Aeolian Lesbian",
+    lines: [
+      "Like a quince-apple, on the cosmic shore, deital, oh! Like a lark, across the stars, candles burn.",
+      "Hark! Let them sing, let them eat, let them breathe, let them rot, let them cheat, let them see all at once and once for all. Sleep soundly, silently under stars, needle-dropped. "
+    ]
+  },
+  {
+    id: "poem-12",
+    title: "And the Heavens",
+    displayTitle: "And the Heavens",
+    lines: [
+      "Yet untouched, then at once,",
+      "the moment is yours. I am",
+      "betrayal, the venomous.",
+      "“Enough!”",
+      "Spectacled, bespeckled, ",
+      "strange to say. Squeamish. ",
+      "Again, stolen. A night rained ",
+      "her blanket above, then at once,",
+      "gone. Mother dear, blame Aphrodite."
+    ]
+  },
+  {
+    id: "poem-13",
+    title: "Indecision",
+    displayTitle: "Indecision",
+    lines: [
+      "As the deep roots are told by the leaves, the wind whips. Close the blinds and kill the birds. Flip a dime, cold as ice, clean seeded beneath layers of hand-imprinted concrete as far as the eye can trace. Smash the ice and kill a second. Bronzed silver, golden-brown, all of the gifts we receive from the earth. Grit your teeth. Bare down, bear down, black or brown or goosed and feathered. Home alone hearing shattering lightning from the bare sky, home fried under threat of sterilization, Frankensteined beyond resuscitation. Shoot to kill. Aim to fire, miss to hang, print to print from finger to finger. Maim desire, miss the bargain, try again next week. Another seven, another five, a nine, a millimeter from everything you’ve ever wanted and a parsec away. In darkness, hold only my hand, let not my fingers slip, lest shadow take place. Impatience. Once more. Cut!",
+      "",
+      "Check out the blinds. Weather, you can like it or not. Check if you can see. Check out once and for all. Please check under the hood, check under the bed, check the closet, check my mirror, check my marrow, and check it all again. Beneath the earth. Find it tucked under a bench, find it in my words, in my soul, find me, please, look at me when I’m talking to you. Drunk on the air in the tunnels, in the rafters, in the radiator, in the gas. Green to blue, white to water, eyes to dawn. Look to the horizon and cry, my child. Your hands are clean, the river still flows, the sun meets the shatter and shutters a life. Meet the stars today, they won't be here tomorrow."
+    ]
+  },
+  {
+    id: "poem-14",
+    title: "Line in the Land // Blank Snaps",
+    displayTitle: "Line in the Land // Blank Snaps",
+    lines: [
+      "Start softly. Speak softly. Stand soft, steadfast,",
+      "against the current. Start simply. Speak simple, think",
+      "again. A lone star peach tree perches under the sun, the ",
+      "agony, the leitmotif. Start selectively. Cant choose, I can’t",
+      "ever seem to choose, rule of threes. Blank Snaps. A good",
+      "man is hard to find. Crash the hierarchy, not if you can,",
+      "dare not to even try. Disagree, biologically. Adage,",
+      "he’ll be home soon, shut books in the house and",
+      "hide the abacus. Keep going straight to end up",
+      "the same way, develop, end how you began. I",
+      "stand steadfast, and draw a line in the land."
+    ]
+  },
+  {
+    id: "poem-15",
+    title: "It can be or not",
+    displayTitle: "It can be or not",
+    lines: [
+      "The slumbering will",
+      "Digest, take note, and alone",
+      "Rest below the sun"
+    ]
   }
 ];
