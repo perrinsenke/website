@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Chicago&family=VT323&display=swap');
+
+.genetic-page-wrapper {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-dither: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi2rVq1X8mBgYGEzAQAxgABb0C2g4qY6sAAAAASUVORK5CYII=');
+
+  background-color: var(--color-black);
+  background-image: var(--color-dither);
+  color: var(--color-black);
+  font-family: 'Chicago', 'VT323', 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.genetic-page-wrapper * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.genetic-page-wrapper .genetic-app {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.genetic-page-wrapper #genetic-window-container {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  background-color: var(--color-white);
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title Bar */
+.genetic-page-wrapper #title-bar {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-bottom: 2px solid var(--color-black);
+  background-color: var(--color-white);
+  padding: 0 4px;
+}
+
+.genetic-page-wrapper .title-stripes {
+  flex-grow: 1;
+  height: 16px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-black),
+    var(--color-black) 2px,
+    var(--color-white) 2px,
+    var(--color-white) 4px
+  );
+}
+
+.genetic-page-wrapper .title-text {
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  z-index: 1;
+}
+
+/* Toolbar */
+.genetic-page-wrapper #toolbar {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 2px solid var(--color-black);
+  background-color: var(--color-white);
+  gap: 8px;
+}
+
+.genetic-page-wrapper button,
+.genetic-page-wrapper select,
+.genetic-page-wrapper input {
+  font-family: 'Chicago', 'VT323', monospace;
+  font-size: 1rem;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: 2px solid var(--color-black);
+  padding: 4px 12px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px 0px var(--color-black);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.genetic-page-wrapper button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px var(--color-black);
+}
+
+.genetic-page-wrapper button:disabled {
+  color: #888;
+  border-color: #888;
+  box-shadow: 2px 2px 0px 0px #888;
+  cursor: not-allowed;
+}
+
+.genetic-page-wrapper .divider {
+  width: 2px;
+  height: 24px;
+  background-color: var(--color-black);
+  margin: 0 8px;
+}
+
+/* Workspace */
+.genetic-page-wrapper #workspace {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.genetic-page-wrapper canvas {
+  background-color: var(--color-white);
+  border: none;
+  cursor: crosshair;
+  image-rendering: pixelated;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  box-shadow: none;
+}
+
+/* Overlays */
+.genetic-page-wrapper .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: var(--color-dither);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.genetic-page-wrapper .hidden {
+  display: none !important;
+}
+
+.genetic-page-wrapper .dialog {
+  background-color: var(--color-white);
+  border: 4px solid var(--color-black);
+  padding: 24px;
+  box-shadow: 10px 10px 0px 0px var(--color-black);
+  text-align: center;
+  min-width: 300px;
+}
+
+.genetic-page-wrapper .dialog h2 {
+  margin-bottom: 20px;
+}
+
+.genetic-page-wrapper .dialog button {
+  margin: 0 10px;
+}
+
+.genetic-page-wrapper .help-dialog {
+  max-width: 600px;
+  padding: 0;
+  text-align: left;
+}
+
+.genetic-page-wrapper .dialog-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.genetic-page-wrapper .dialog-title-bar button {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: none;
+  box-shadow: none;
+  padding: 2px 6px;
+}
+
+.genetic-page-wrapper .dialog-title-bar button:active {
+  transform: none;
+}
+
+.genetic-page-wrapper .dialog-content {
+  padding: 20px;
+  background-color: var(--color-white);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.genetic-page-wrapper .dialog-content h3 {
+  margin-bottom: 12px;
+}
+
+.genetic-page-wrapper .dialog-content p {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.genetic-page-wrapper .dialog-content ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.genetic-page-wrapper .dialog-content li {
+  margin-bottom: 6px;
+}
+
+/* Toolbox */
+.genetic-page-wrapper #toolbox {
+  width: 200px;
+  flex-shrink: 0;
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--color-white);
+  border-right: 2px solid var(--color-black);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  z-index: 10;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.genetic-page-wrapper .toolbox-title {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid var(--color-black);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.genetic-page-wrapper .tool-btn {
+  text-align: left;
+  padding: 8px;
+}
+
+.genetic-page-wrapper .tool-btn.active {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* Save / Load */
+.genetic-page-wrapper .divider-horizontal {
+  height: 2px;
+  background-color: var(--color-black);
+  margin: 20px 0;
+}
+
+.genetic-page-wrapper .save-load-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.genetic-page-wrapper .load-row {
+  display: flex;
+  gap: 10px;
+}
+
+.genetic-page-wrapper #load-input {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 4px;
+  border: 2px solid var(--color-black);
+  width: 200px;
+}
+
+.genetic-exit-btn {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1000;
+  background: rgba(0,0,0,0.8) !important;
+  color: white !important;
+  border: 1px solid white !important;
+  padding: 8px 16px !important;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: none !important;
+}
+
+.genetic-exit-btn:hover {
+  background: white !important;
+  color: black !important;
+}
+
+
+/* Genetic Ecosystem Specific Toolbox Styles */
+.genetic-page-wrapper .stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.genetic-page-wrapper .slider-group {
+  margin-bottom: 12px;
+}
+
+.genetic-page-wrapper .slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.genetic-page-wrapper input[type="range"] {
+  width: 100%;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+}
+
+.genetic-page-wrapper .btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+
+.genetic-page-wrapper #simulation-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+}
+
+.genetic-page-wrapper #simulation-container canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  flex: 1;
+}
